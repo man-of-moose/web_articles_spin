@@ -5,6 +5,8 @@
 import pickle
 import pandas as pd
 import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
 
 from sklearn.base import BaseEstimator, TransformerMixin
 from sklearn.linear_model import PassiveAggressiveClassifier
@@ -148,6 +150,17 @@ def cli(text, group_size):
     return (0.0588 * mccphw) - (0.296 * mscphw) - 15.8
 
 
+def check_profanity(comment):
+    profane = pd.read_csv("profane_words.csv", header=None)
+    profane = list(profane.loc[:,0])
+    count = 0
+    comment = comment.lower()
+    tokens = nltk.word_tokenize(comment)
+    for word in tokens:
+        if word in profane:
+            count += 1
+    return count/len(tokens)
+
 
 class ItemSelector(BaseEstimator, TransformerMixin):
     def __init__(self, key):
@@ -176,58 +189,37 @@ normalizer = pd.read_pickle('normalizer.pickle')
 pipe = pd.read_pickle('pipeline.pickle')
 model = pd.read_pickle('model.pickle')
 
-#execute code
-# def main():
-#     try:
-#         st.title("Covid19 Political Bias Detector")
-#         st.text('Pass a web article (URL) related to COVID19 below')
-#         web_article = st.text_input("Paste URL Here!")
-#         data = {'predictor': get_full_text(web_article)}
-#         data['n_long_words'] = get_n_long_words(data['predictor'])
-#         data['n_monosyllable_words'] = get_n_monosyllable_words(data['predictor'])
-#         data['n_polysyllable_words'] = get_n_polysyllable_words(data['predictor'])
-#         data['n_unique_words'] = get_n_unique_words(data['predictor'])
-#         data['coleman_index'] = cli(data['predictor'],100)
-#         data['polarity'] = polarity_txt(data['predictor'])
-#         data['subjectivity'] = subj_txt(data['predictor'])
-#         data = pd.DataFrame(data, index=[0])
-#         data[['polarity', 'coleman_index']] = normalizer.fit_transform(data[['polarity', 'coleman_index']])
-#         train_vec = pipe.transform(data)
-#         pred = model.predict(train_vec)[0]
-#         st.write("Based on the contents, I believe this article leans: {}".format(pred))
-#     except:
-#         print("Error. Either article is not long enough, or website is down")
-
 try:
     st.title("Covid19 Political Bias Detector")
     st.text('Pass a web article (URL) related to COVID19 below')
     data = {'predictor': get_full_text(st.text_input("Paste URL Here!"))}
-    st.write('retrieving n_long_words')
+    st.write('retrieving text statistics')
     data['n_long_words'] = get_n_long_words(data['predictor'])
-    st.write('retrieving n_monosyllable_words')
     data['n_monosyllable_words'] = get_n_monosyllable_words(data['predictor'])
-    st.write('retrieving n_polysyllable_words')
     data['n_polysyllable_words'] = get_n_polysyllable_words(data['predictor'])
-    st.write('retrieving n_unique_words')
     data['n_unique_words'] = get_n_unique_words(data['predictor'])
-    st.write('retrieving coleman')
-    data['coleman_index'] = cli(data['predictor'],100)
-    st.write('retrieving polarity')
+    st.write('retrieving readability scores')
+    data['mccphw'] = mean_character_per_100(data['predictor'],50)
+    data['mscphw'] = mean_sentences_per_100(data['predictor'],50)
+    data['coleman_index'] = cli(data['predictor'],50)
+    st.write('retrieving sentiment scores')
     data['polarity'] = polarity_txt(data['predictor'])
-    st.write('retrieving subjectivity')
     data['subjectivity'] = subj_txt(data['predictor'])
+    st.write('retrieving profanity score')
+    data['profanity'] = check_profanity(data['predictor'])
     data = pd.DataFrame(data, index=[0])
-    st.write(data)
-    data[['polarity', 'coleman_index']] = normalizer.fit_transform(data[['polarity', 'coleman_index']])
+    data[['polarity', 'mccphw','mscphw','coleman_index']] = normalizer.transform(data[['polarity', 'mccphw','mscphw','coleman_index']])
     st.write(data)
     st.write("Initiating Pipeline Transformation")
     train_vec = pipe.transform(data)
     st.write("Initializing Model Prediction")
     pred = model.predict(train_vec)[0]
-    st.write('prediction created')
-    st.write("Based on the contents, I believe this article leans: {}".format(pred))
+    st.write("Based on the contents, I believe this article leans: **{}**".format(pred))   
 except:
     st.write("Error. Either article is not long enough, or website is down")
+
+
+
     
 # if __name__ == "__main__":
 #     main()
