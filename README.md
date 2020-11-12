@@ -51,6 +51,11 @@ This project's aim is to develop a NLP model to assist individuals in determinin
 ## Conclusion
 
 ### Potential Reasons for Misclassification
+
+![Image](Pics/incorrects.png?raw=true)
+
+- Majority of misclassifications "1 degree" off (ex: Estimated "Right" when in fact the article is "Far_Right")
+- Of the misclassifications which are significant, many have to do with sports. Will need to investigate further
 - Majority of misclassifications occured on "Left" leaning media outlets. After further review, I believe this is due to the fact main-stream left-leaning media outlets tend to hire a wider variety of authoers, with respect to author-political-leaning. In other words, the initial labeling was incorrect in some instances because outlets are publishing articles different than their allsides.com label.
 - Articles misclassified as "Center" tend to discuss global coronavirus news rather than USA-specific. This could be due to the data collection process. One remedy would be to filter "center" articles as only those pertaining to the USA
 
