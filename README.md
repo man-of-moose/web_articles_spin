@@ -44,8 +44,20 @@ This project's aim is to develop a NLP model to assist individuals in determinin
 
 ## Results
 
+- Addressed class imbalance by upsampling right to far_right, and by downsampling everything else to far_right
+- Baseline Dummy Classifier accuracy of 24%
+- Tested multiple models including SVM, RFC, MNB, Bagging, PAC, Word2Vec, LSTM, XBG
+- Best Model: XGBoost (accuracy of 90%)
+
+### Model Results
 ![Image](Pics/model_evaluation.png?raw=true)
 
+
+### XGB Confusion Matrix
 ![Image](Pics/xgb_confusion.png?raw=true)
+
+
+### XGB Feature Importance
+![Image](Pics/xgb_features.png?raw=true)
 
 
