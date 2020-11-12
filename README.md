@@ -26,9 +26,7 @@ This project's aim is to develop a NLP model to assist individuals in determinin
 - NLTK
 - LDA
 
-
 ![Image](Pics/topic_by_target.png?raw=true)
-
 
 ### Feature Engineering
 - Used texacity to generate article statistics
@@ -36,10 +34,6 @@ This project's aim is to develop a NLP model to assist individuals in determinin
 - Used gensim to generate LDA topics (used as additional features)
 - TFIDF, Word2Vec, Doc2Vec, FeatureUnion
 - Used custom functions to determine profanity index
-
-![Image](Pics/pol_by_target.png?raw=true)
-
-![Image](Pics/coleman_index.png?raw=true)
 
 ### Results
 
