@@ -57,6 +57,7 @@ This project's aim is to develop a NLP model to assist individuals in determinin
 ### Next Steps
 - Get more data to optimize LSTM
 - Expand to more topics than just COVID19
+- Re-label by a more granular level (author rather than media-outlet)
 - Bring Streamlit app online with Heroku
 
 ![Image](Pics/streamlit_pic.png?raw=true)
