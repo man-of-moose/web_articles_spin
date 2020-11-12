@@ -1,6 +1,5 @@
 #-*- coding: utf-8 -*-
 
-
 #import libraries
 import pickle
 import pandas as pd
@@ -172,18 +171,23 @@ class ItemSelector(BaseEstimator, TransformerMixin):
 
 class TextStats(BaseEstimator, TransformerMixin):
     """Extract features from each document for DictVectorizer"""
+
     def fit(self, x, y=None):
         return self
-    def transform(self, data):
-        return [{'pol': row['polarity'],
-                 'sub': row['subjectivity'],
-                 'n_long_words': row['n_long_words'],
-                 'n_monosyllable_words': row['n_monosyllable_words'],
-                 'n_polysyllable_words': row['n_polysyllable_words'],
-                 'n_unique_words': row['n_unique_words'],
-                 'coleman_index': row['coleman_index']} for _, row in data.iterrows()]
 
-    
+    def transform(self, data):
+        return [{'pol':  row['polarity'], 
+                 'sub': row['subjectivity'],
+                 'n_long_words': row['n_long_words'], 
+                 'n_monosyllable_words': row['n_monosyllable_words'], 
+                 'n_polysyllable_words': row['n_polysyllable_words'], 
+                 'n_unique_words': row['n_unique_words'],
+                 'coleman_index': row['coleman_index'], 
+                 'mccphw': row['mccphw'],
+                 'mscphw': row['mscphw'],
+                 'profanity': row['profanity']} for _, row in data.iterrows()]
+
+
 #load pickles
 normalizer = pd.read_pickle('normalizer.pickle')
 pipe = pd.read_pickle('pipeline.pickle')
