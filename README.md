@@ -65,7 +65,7 @@ This project's aim is to develop a NLP model to assist individuals in determinin
 - Expand to more topics than just COVID19
 - Bring Streamlit app online with Heroku
 
-![Image](Pics/xgb_confusion.png?raw=true)
+![Image](Pics/streamlit_pic.png?raw=true)
 
 ## Resources
 - Allsides.com was used for labeling
