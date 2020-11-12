@@ -26,7 +26,6 @@ This project's aim is to develop a NLP model to assist individuals in determinin
 - NLTK
 - LDA
 
-![Image](Pics/termite_plot.png?raw=true)
 
 ![Image](Pics/topic_by_target.png?raw=true)
 
@@ -42,29 +41,31 @@ This project's aim is to develop a NLP model to assist individuals in determinin
 
 ![Image](Pics/coleman_index.png?raw=true)
 
-## Results
+### Results
 
 - Addressed class imbalance by upsampling right to far_right, and by downsampling everything else to far_right
 - Baseline Dummy Classifier accuracy of 24%
 - Tested multiple models including SVM, RFC, MNB, Bagging, PAC, Word2Vec, LSTM, XBG
 - Best Model: XGBoost (accuracy of 90%)
 
-### Model Results
+#### Model Results
 ![Image](Pics/model_evaluation.png?raw=true)
 
-
-### XGB Confusion Matrix
+#### XGB Confusion Matrix
 ![Image](Pics/xgb_confusion.png?raw=true)
-
-
-### XGB Feature Importance
-![Image](Pics/xgb_features.png?raw=true)
-
 
 ## Conclusion
 
 ### Potential Reasons for Misclassification
+- Majority of misclassifications occured on "Left" leaning media outlets. After further review, I believe this is due to the fact main-stream left-leaning media outlets tend to hire a wider variety of authoers, with respect to author-political-leaning. In other words, the initial labeling was incorrect in some instances because outlets are publishing articles different than their allsides.com label.
+- Articles misclassified as "Center" tend to discuss global coronavirus news rather than USA-specific. This could be due to the data collection process. One remedy would be to filter "center" articles as only those pertaining to the USA
 
 ### Next Steps
+- Get more data to optimize LSTM
+- Expand to more topics than just COVID19
+- Bring Streamlit app online with Heroku
+
+![Image](Pics/xgb_confusion.png?raw=true)
 
 ## Resources
+- Allsides.com was used for labeling
