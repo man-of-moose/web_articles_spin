@@ -18,7 +18,7 @@ This project's aim is to develop a NLP model to assist individuals in determinin
 - Used NewsAPi to retrieve article URLs related to coronavirus
 - Used Newspaper3k python library to scrape full article contents from URLs
 
-![Image](Pics/class_mmbalance.png?raw=true)
+![Image](Pics/class_imbalance.png?raw=true)
 
 ### Data Cleaning and EDA
 - Pandas
