@@ -1,5 +1,5 @@
 # web_articles_spin
-Analyzing web articles related to coronavirus to determine if they are Left, Center, or Right leaning
+Analyzing web articles related to coronavirus to determine if they are Far_Right, Right, Center, Left, or Far_Left leaning
 
 ## Project Scope
 The internet is a great place to get information and stay updated on the major happenings of the world. Unfortunately, in today's world it is up to the user to determine the degree of factfullness, or spin, of whatever content they've come across. Large news organizations and media companies compete for the largest viewerships, and often turn to dissemination of misinformation to push whatever agenda they may have. This is extremely problematic, especially when the misinformation has to do with unprecedented natural disasters affecting citizens lives.
@@ -61,3 +61,10 @@ This project's aim is to develop a NLP model to assist individuals in determinin
 ![Image](Pics/xgb_features.png?raw=true)
 
 
+## Conclusion
+
+### Potential Reasons for Misclassification
+
+### Next Steps
+
+## Resources
