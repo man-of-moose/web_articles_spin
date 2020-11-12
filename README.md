@@ -68,4 +68,4 @@ This project's aim is to develop a NLP model to assist individuals in determinin
 ![Image](Pics/streamlit_pic.png?raw=true)
 
 ## Resources
-- Allsides.com was used for labeling
+- [Allsides.com](https://www.allsides.com/unbiased-balanced-news) was used for labeling
