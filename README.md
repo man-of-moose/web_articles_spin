@@ -6,6 +6,11 @@ The internet is a great place to get information and stay updated on the major h
 
 This project's aim is to develop a NLP model to assist individuals in determining the spin of online web-articles, specifically pertaining to coronavirus news. The model will classify web articles as either Right-leaning, Center-leaning, or Left-leaning.
 
+## Items of Note
+- Analysis/: Has notebooks detailing data collection, EDA and Feature Engineering, as well as Model Building and Analysis
+- pics/: All illustrations
+- Scripts/: Data gathering scripts
+
 ## Procedure and Project Overview
 
 ### Collecting Data
