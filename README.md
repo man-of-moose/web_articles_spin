@@ -53,6 +53,7 @@ This project's aim is to develop a NLP model to assist individuals in determinin
 ### Potential Reasons for Misclassification
 
 ![Image](Pics/incorrects.png?raw=true)
+[Link to video demo](https://www.loom.com/share/c9a0b4e3ac804587ad52f9dff707f16a)
 
 - Majority of misclassifications "1 degree" off (ex: Estimated "Right" when in fact the article is "Far_Right")
 - Of the misclassifications which are significant, many have to do with sports. Will need to investigate further
