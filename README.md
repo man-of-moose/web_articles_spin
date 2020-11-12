@@ -9,7 +9,7 @@ This project's aim is to develop a NLP model to assist individuals in determinin
 ## Items of Note
 - Analysis/: Has notebooks detailing data collection, EDA and Feature Engineering, as well as Model Building and Analysis
 - pics/: All illustrations
-- Scripts/: Data gathering scripts
+- Scripts/: Streamlit script
 
 ## Procedure and Project Overview
 
@@ -18,17 +18,21 @@ This project's aim is to develop a NLP model to assist individuals in determinin
 - Used NewsAPi to retrieve article URLs related to coronavirus
 - Used Newspaper3k python library to scrape full article contents from URLs
 
+![Image](Pics/class_mmbalance.png?raw=true)
+
 ### Data Cleaning and EDA
 - Pandas
 - Numpy
 - NLTK
 - LDA
 
+
 ### Feature Engineering
 - Used texacity to generate article statistics
 - Used textblob to generate article sentiment
 - Used gensim to generate LDA topics (used as additional features)
 - TFIDF, Word2Vec, Doc2Vec, FeatureUnion
+- Used custom functions to determine profanity index
 
 ## Results
 
