@@ -20,6 +20,7 @@ from nltk import word_tokenize
 from nltk.corpus import stopwords
 from nltk.stem import PorterStemmer, WordNetLemmatizer
 import textacy
+from textacy import text_stats
 import re
 import string
 import scipy
@@ -35,9 +36,11 @@ lemmatizer = WordNetLemmatizer()
 
 
 #set stopwords and punctuations
-stopwords = stopwords.words('english')
-stopwords += list(string.punctuation)
-stopwords += ["n't","''","'re'","”","``","“","''","’","'s","'re","http","https","char","reuters","wall","street","journal","photo"]
+#set stopwords and punctuations
+stopwords_ = stopwords.words('english')
+stopwords_ += list(string.punctuation)
+stopwords_ += ["n't","''","'re'","”","``","“","''","’","'s","'re","http","https","char","reuters","wall","street","journal","photo"]
+
 
 #set config for Newspaper3k
 user_agent = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/50.0.2661.102 Safari/537.36'
@@ -59,7 +62,7 @@ def get_full_text(url):
 
 #preprocessing
 def black_txt(token):
-    return token not in stopwords and token not in list(string.punctuation) and len(token) > 3
+    return token not in stopwords_ and len(token) > 3
 
 def clean_txt(text, string=True):
     clean_text = []
@@ -82,27 +85,27 @@ def clean_txt(text, string=True):
 #feature engineering
 def get_n_long_words(text):
     doc = textacy.make_spacy_doc(text, lang=nlp)
-    ts = textacy.TextStats(doc)
-    n_words = ts.n_words
-    return ts.n_long_words / n_words
+    n_words = text_stats.n_words(doc)
+    n_long_words = text_stats.n_long_words(doc)
+    return n_long_words / n_words
 
 def get_n_monosyllable_words(text):
     doc = textacy.make_spacy_doc(text, lang=nlp)
-    ts = textacy.TextStats(doc)
-    n_words = ts.n_words
-    return ts.n_monosyllable_words / n_words
+    n_words = text_stats.n_words(doc)
+    n_monosyllable_words = text_stats.n_monosyllable_words(doc)
+    return n_monosyllable_words / n_words
 
 def get_n_polysyllable_words(text):
     doc = textacy.make_spacy_doc(text, lang=nlp)
-    ts = textacy.TextStats(doc)
-    n_words = ts.n_words
-    return ts.n_polysyllable_words / n_words
+    n_words = text_stats.n_words(doc)
+    n_polysyllable_words = text_stats.n_polysyllable_words(doc)
+    return n_polysyllable_words / n_words
 
 def get_n_unique_words(text):
     doc = textacy.make_spacy_doc(text, lang=nlp)
-    ts = textacy.TextStats(doc)
-    n_words = ts.n_words
-    return ts.n_unique_words / n_words
+    n_words = text_stats.n_words(doc)
+    n_unique_words = text_stats.n_unique_words(doc)
+    return n_unique_words / n_words
 
 def polarity_txt(text):
     return TextBlob(text).sentiment[0]
@@ -160,6 +163,12 @@ def check_profanity(comment):
             count += 1
     return count/len(tokens)
 
+def decode_model_result(result, encoder):
+    array = np.array([result])
+    transformed = encoder.inverse_transform(array)
+    
+    return transformed[0]
+
 
 class ItemSelector(BaseEstimator, TransformerMixin):
     def __init__(self, key):
@@ -189,9 +198,10 @@ class TextStats(BaseEstimator, TransformerMixin):
 
 
 #load pickles
-normalizer = pd.read_pickle('normalizer.pickle')
-pipe = pd.read_pickle('pipeline.pickle')
-model = pd.read_pickle('model.pickle')
+normalizer = pd.read_pickle('normalizer2.pickle')
+pipe = pd.read_pickle('pipeline2.pickle')
+model = pd.read_pickle('model2.pickle')
+encoder = pd.read_pickle('encoder.pickle')
 
 try:
     st.title("Covid19 Political Bias Detector")
@@ -218,6 +228,7 @@ try:
     train_vec = pipe.transform(data)
     st.write("Initializing Model Prediction")
     pred = model.predict(train_vec)[0]
+    pred = decode_model_result(pred, encoder)
     st.write("Based on the contents, I believe this article leans: **{}**".format(pred))   
 except:
     st.write("Error. Either article is not long enough, or website is down")
